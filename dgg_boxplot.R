@@ -22,16 +22,6 @@ dgg_boxplot = function(df, lab_x=NULL, lab_y=NULL, title=NULL, stat_test=c(FALSE
         sep="\n"))
     
     ####################################################################
-        
-    # Error checking
-    
-    if(!(ncol(df) %in% c(2,3))){
-        return("Error: 'df' must have 2 or 3 columns.")
-    }
-    
-    if(length(stat_test)>1) stat_test = stat_test[1]
-    
-    ####################################################################
     
     # Pre-made styles
     
@@ -47,6 +37,12 @@ dgg_boxplot = function(df, lab_x=NULL, lab_y=NULL, title=NULL, stat_test=c(FALSE
     ####################################################################
     
     # ERRORS
+    
+    if(!(ncol(df) %in% c(2,3))){
+        return("Error: 'df' must have 2 or 3 columns.")
+    }
+    
+    if(length(stat_test)>1) stat_test = stat_test[1]
     
     if(!(style_number %in% pre_made_styles$n)){
         return("Error: Style number doesn't exist")
