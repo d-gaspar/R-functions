@@ -57,7 +57,7 @@ dgg_boxplot = function(df, lab_x=NULL, lab_y=NULL, title=NULL, stat_test=c(FALSE
     # set column 1 class to factor
     df$V1 = factor(as.character(df$V1))
     
-    # set column 1 class to factor
+    # set column 2 class to factor
     if(ncol(df)==3){
         df$V2 = factor(as.character(df$V2))
     }
