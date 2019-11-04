@@ -32,7 +32,7 @@ dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability",
         font_x = 30,
         font_y = 30,
         tickslab_size = 15,
-        pallete = "Set1",
+        palette = "Set1",
         break_time = 12,
         linetype = 1,
         median_line = "none",
@@ -77,7 +77,7 @@ dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability",
     if(!("font_x" %in% names(style))) style$font_x = pre_made_styles[style_number,"font_x"]
     if(!("font_y" %in% names(style))) style$font_y = pre_made_styles[style_number,"font_y"]
     if(!("tickslab_size" %in% names(style))) style$tickslab_size = pre_made_styles[style_number,"tickslab_size"]
-    if(!("pallete" %in% names(style))) style$pallete = pre_made_styles[style_number,"pallete"]
+    if(!("palette" %in% names(style))) style$palette = pre_made_styles[style_number,"palette"]
     if(!("break_time" %in% names(style))) style$break_time = pre_made_styles[style_number,"break_time"]
     if(!("linetype" %in% names(style))) style$linetype = pre_made_styles[style_number,"linetype"]
     if(!("median_line" %in% names(style))) style$median_line = pre_made_styles[style_number,"median_line"]
@@ -134,7 +134,7 @@ dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability",
         font.x = style$font_x,
         font.y = style$font_y,
         font.tickslab = style$tickslab_size,
-        pallete = style$pallete,
+        palette = style$palette,
         alpha = 0.7,
         break.x.by = style$break_time,
         surv.median.line = as.character(style$median_line),
