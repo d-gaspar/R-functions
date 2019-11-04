@@ -88,14 +88,19 @@ dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability",
     # SURV
     
     FitAll = survfit(Surv(time, censor) ~ group, data=df)
-    sdf = survdiff(Surv(time, censor) ~ as.factor(group), data=df)
     
     # Log-rank
-    pval_log_rank = round(1 - pchisq(sdf$chisq, length(sdf$n) - 1), 5)
-    if(pval_log_rank==0) pval_log_rank = "<0,00001"
-    pval = paste0(
-        "Log-rank: ", pval_log_rank
-    )
+    if(length(groups)>1){
+        sdf = survdiff(Surv(time, censor) ~ as.factor(group), data=df)
+        
+        pval_log_rank = round(1 - pchisq(sdf$chisq, length(sdf$n) - 1), 5)
+        if(pval_log_rank==0) pval_log_rank = "<0,00001"
+        pval = paste0(
+            "Log-rank: ", pval_log_rank
+        )
+    } else {
+        pval = ""
+    }
     
     # PROPORTION TEST
     if(prop_test){
@@ -108,9 +113,10 @@ dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability",
         pval_prop_test = round(fisher.test(prop_test_df)$p.value, 5)
         if(pval_prop_test==0) pval_prop_test = "<0,00001"
         
+        if(pval!="") pval = paste0(pval, "\n")
+        
         pval = paste0(
             pval,
-            "\n",
             "prop.test: ", pval_prop_test
         )
     }
