@@ -44,6 +44,17 @@ dgg_linegraph = function(df, features_X, features_Y, samples_A, samples_B, lab_x
     
     ####################################################################
     
+    # Normalization - log1p
+    df = log1p(df)
+    
+    # Normalization - Z-Score
+    for(i in 1:nrow(df)){
+        aux = as.numeric(df[i,])
+        df[i,] = (aux - mean(aux)) / sd(aux)
+    }
+    
+    ####################################################################
+    
     # Customizable styles
     
     if(!("tickslab_size" %in% names(style))) style$tickslab_size = pre_made_styles[style_number,"tickslab_size"]
