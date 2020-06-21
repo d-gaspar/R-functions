@@ -102,8 +102,8 @@ dgg_linegraph = function(df, features_X, features_Y, samples_A, samples_B, lab_x
     # PLOT
     
     p = ggplot() +
-        geom_point(data=df_mean_point, mapping=aes(x=as.integer(df_mean_point$features), y=value, color=variable)) +
-        geom_line(data=df_mean_line, mapping=aes(x=as.integer(df_mean_point$features), y=value, color=variable), size=1.5) +
+        geom_point(data=df_mean_point, mapping=aes(x=as.integer(features), y=value, color=variable)) +
+        geom_line(data=df_mean_line, mapping=aes(x=as.integer(features), y=value, color=variable), size=1.5) +
         theme(
             text = element_text(face="bold", size=style$lab_size),
             panel.background = NULL,
