@@ -15,9 +15,9 @@
 dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability", title=NULL, style=list(), style_number=c(1), show_n=TRUE, prop_test=FALSE, prop_test_cut=36){
     
     cat(paste(
-        "dgg_boxplot",
+        "dgg_functions",
         "   AUTHOR: Daniel Gaspar Goncalves",
-        "   git: https://github.com/d-gaspar/",
+        "   git: https://github.com/d-gaspar/R-functions",
         "\n",
         sep="\n"))
     
