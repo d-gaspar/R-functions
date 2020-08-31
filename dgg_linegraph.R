@@ -12,7 +12,7 @@
 
 ########################################################################
 
-dgg_linegraph = function(df, features_X, features_Y, samples_A, samples_B, lab_x=NULL, lab_y=NULL, title=NULL, legend=TRUE, legend.title="variable", legend.labels=c("samples_A", "samples_B"), style=list(), style_number=c(1)){
+dgg_linegraph = function(df, features_X, features_Y, samples_A, samples_B, lab_x=NULL, lab_y=NULL, title=NULL, legend=TRUE, legend.title="variable", legend.labels=c("samples_A", "samples_B"), style=list(), style_number=c(1), log1p_norm=TRUE){
     
     cat(paste(
         "dgg_linegraph",
@@ -46,7 +46,9 @@ dgg_linegraph = function(df, features_X, features_Y, samples_A, samples_B, lab_x
     ####################################################################
     
     # Normalization - log1p
-    df = log1p(df)
+    if(log1p_norm){
+        df = log1p(df)
+    }
     
     # Normalization - Z-Score
     for(i in 1:nrow(df)){
