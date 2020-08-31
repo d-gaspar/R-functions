@@ -118,7 +118,7 @@ dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability",
         
         pval = paste0(
             pval,
-            "prop.test: ", pval_prop_test
+            "Fisher.test: ", pval_prop_test
         )
     }
     
