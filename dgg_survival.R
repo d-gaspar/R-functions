@@ -2,7 +2,8 @@
 ########################################################################
 #                                                                      #
 # AUTHOR: Daniel Gaspar Goncalves                                      #
-# git: https://github.com/d-gaspar/                                    #
+# git: https://github.com/d-gaspar/R-functions                         #
+# version: 0.0.1                                                       #
 #                                                                      #
 ########################################################################
 
