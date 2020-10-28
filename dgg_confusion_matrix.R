@@ -11,7 +11,7 @@
 
 ########################################################################
 
-dgg_confusion_matrix = function(df, xlab, ylab){
+dgg_confusion_matrix = function(df, xlab, ylab, subtitle=NULL){
   
   cat(paste(
     "dgg_confusion_graph",
@@ -43,10 +43,12 @@ dgg_confusion_matrix = function(df, xlab, ylab){
     theme(
       legend.position="none",
       text = element_text(size=20),
-      panel.background = NULL
+      panel.background = NULL,
+      plot.subtitle = element_text(size=14)
     ) +
     labs(
       title = "Confusion Matrix",
+      subtitle = subtitle,
       x = xlab,
       y = ylab
     )
