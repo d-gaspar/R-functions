@@ -12,7 +12,7 @@
 
 ########################################################################
 
-dgg_linegraph = function(df, features_X, features_Y, samples_A, samples_B, lab_x=NULL, lab_y=NULL, title=NULL, legend=TRUE, legend.title="variable", legend.labels=c("samples_A", "samples_B"), style=list(), style_number=c(1), log1p_norm=TRUE){
+dgg_linegraph = function(df, features_X, features_Y, samples_A, samples_B, lab_x=NULL, lab_y=NULL, title=NULL, legend=TRUE, legend.title="variable", legend.labels=c("samples_A", "samples_B"), style=list(), style_number=c(1), log1p_norm=TRUE, ylim=NULL){
     
     cat(paste(
         "dgg_linegraph",
@@ -126,6 +126,11 @@ dgg_linegraph = function(df, features_X, features_Y, samples_A, samples_B, lab_x
             x = lab_x,
             y = lab_y
         )
+    
+    if(!is.null(ylim)){
+        p = p  +
+            ylim(ylim)
+    }
     
     if(legend){
         p = p +
