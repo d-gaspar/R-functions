@@ -12,7 +12,7 @@
 
 ########################################################################
 
-dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability", title=NULL, style=list(), style_number=c(1), show_n=TRUE, prop_test=FALSE, prop_test_cut=36){
+dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability", title=NULL, style=list(), style_number=c(1), show_n=TRUE, prop_test=FALSE, prop_test_cut=36, limit_time=NULL){
     
     cat(paste(
         "dgg_functions",
@@ -51,6 +51,18 @@ dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability",
     if(!(style_number %in% pre_made_styles$n)){
         return("Error: Style number doesn't exist")
     }
+    
+    ####################################################################
+  
+  # limit time
+  
+  if(!is.null(limit_time)){
+    # censor = lost-followup
+    df[df[,1] > limit_time, 2] = 0
+    
+    # time = limit_time
+    df[df[,1] > limit_time, 1] = limit_time
+  }
     
     ####################################################################
     
