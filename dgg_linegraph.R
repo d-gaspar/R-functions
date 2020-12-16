@@ -102,6 +102,13 @@ dgg_linegraph = function(df, features_X, features_Y, samples_A, samples_B, lab_x
     
     ####################################################################
     
+    # print min and max of the y-axis
+    
+    print(paste("min:", min(df_mean_point$value)))
+    print(paste("max:", max(df_mean_point$value)))
+    
+    ####################################################################
+    
     # PLOT
     
     p = ggplot() +
