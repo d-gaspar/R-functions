@@ -74,6 +74,10 @@ dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability",
     
     # show N
     if(show_n){
+        if(any(is.na(df$group))){
+          df$group = as.character(df$group)
+          df$group[is.na(df$group)] = "NA"
+        }
         df$group = as.factor(sapply(df$group, function(x) paste0(x, " [",as.numeric(table(df$group)[x]), "]")))
     }
     
