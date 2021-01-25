@@ -110,20 +110,26 @@ dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability",
     # Log-rank
     if(length(groups)>1){
         if(is.null(statistic_test_groups)){
-          sdf = survdiff(Surv(time, censor) ~ as.factor(group), data=df)
+            sdf = survdiff(Surv(time, censor) ~ as.factor(group), data=df)
         } else {
-          # restrict log-rank group test
-          sdf = survdiff(
-            Surv(time, censor) ~ as.factor(group),
-            data = df[df$original_group_name %in% statistic_test_groups,]
-          )
+            # restrict log-rank group test
+            try({
+                sdf = survdiff(
+                    Surv(time, censor) ~ as.factor(group),
+                    data = df[df$original_group_name %in% statistic_test_groups,]
+                )
+            })
         }
         
-        pval_log_rank = round(1 - pchisq(sdf$chisq, length(sdf$n) - 1), 5)
-        if(pval_log_rank==0) pval_log_rank = "<0,00001"
-        pval = paste0(
-            "Log-rank: ", pval_log_rank
-        )
+        if(exists("sdf")){
+            pval_log_rank = round(1 - pchisq(sdf$chisq, length(sdf$n) - 1), 5)
+            if(pval_log_rank==0) pval_log_rank = "<0,00001"
+            pval = paste0(
+                "Log-rank: ", pval_log_rank
+            )
+        } else {
+            pval = ""
+        }
     } else {
         pval = ""
     }
