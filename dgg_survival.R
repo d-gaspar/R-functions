@@ -12,7 +12,7 @@
 
 ########################################################################
 
-dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability", title=NULL, style=list(), style_number=c(1), show_n=TRUE, prop_test=FALSE, prop_test_cut=36, limit_time=NULL){
+dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability", title=NULL, style=list(), style_number=c(1), show_n=TRUE, prop_test=FALSE, prop_test_cut=36, limit_time=NULL, statistic_test_groups=NULL){
     
     cat(paste(
         "dgg_functions",
@@ -71,6 +71,7 @@ dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability",
     
     # set column 3 class to factor
     df$group = factor(as.character(df$group))
+    df$original_group_name = as.character(df$group)
     
     # show N
     if(show_n){
@@ -108,7 +109,15 @@ dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability",
     
     # Log-rank
     if(length(groups)>1){
-        sdf = survdiff(Surv(time, censor) ~ as.factor(group), data=df)
+        if(is.null(statistic_test_groups)){
+          sdf = survdiff(Surv(time, censor) ~ as.factor(group), data=df)
+        } else {
+          # restrict log-rank group test
+          sdf = survdiff(
+            Surv(time, censor) ~ as.factor(group),
+            data = df[df$original_group_name %in% statistic_test_groups,]
+          )
+        }
         
         pval_log_rank = round(1 - pchisq(sdf$chisq, length(sdf$n) - 1), 5)
         if(pval_log_rank==0) pval_log_rank = "<0,00001"
@@ -121,12 +130,22 @@ dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability",
     
     # PROPORTION TEST
     if(prop_test){
-        
-        prop_test_df = matrix(0, 2, length(groups))
-        for(i in 1:length(groups)){
+        if(is.null(statistic_test_groups)){
+          prop_test_df = matrix(0, 2, length(groups))
+
+          for(i in 1:length(groups)){
             prop_test_df[1,i] = sum(df$group==groups[i] & df$time>prop_test_cut)
             prop_test_df[2,i] = sum(df$group==groups[i] & df$time<=prop_test_cut & df$censor==1)
+          }
+        } else {
+          prop_test_df = matrix(0, 2, length(statistic_test_groups))
+
+          for(i in 1:length(statistic_test_groups)){
+            prop_test_df[1,i] = sum(df$original_group_name==statistic_test_groups[i] & df$time>prop_test_cut)
+            prop_test_df[2,i] = sum(df$original_group_name==statistic_test_groups[i] & df$time<=prop_test_cut & df$censor==1)
+          }
         }
+        
         pval_prop_test = round(fisher.test(prop_test_df)$p.value, 5)
         if(pval_prop_test==0) pval_prop_test = "<0,00001"
         
