@@ -123,7 +123,7 @@ dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability",
         
         if(exists("sdf")){
             pval_log_rank = round(1 - pchisq(sdf$chisq, length(sdf$n) - 1), 5)
-            if(pval_log_rank==0) pval_log_rank = "<0,00001"
+            if(pval_log_rank==0) pval_log_rank = paste0("<0", options()$OutDec, "00001")
             pval = paste0(
                 "Log-rank: ", pval_log_rank
             )
@@ -153,7 +153,7 @@ dgg_survival = function(df, lab_x="Time (months)", lab_y="Survival probability",
         }
         
         pval_prop_test = round(fisher.test(prop_test_df)$p.value, 5)
-        if(pval_prop_test==0) pval_prop_test = "<0,00001"
+        if(pval_prop_test==0) pval_prop_test = paste0("<0", options()$OutDec, "00001")
         
         if(pval!="") pval = paste0(pval, "\n")
         
