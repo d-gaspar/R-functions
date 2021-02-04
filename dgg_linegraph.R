@@ -116,10 +116,11 @@ dgg_linegraph = function(df, features_X, features_Y, samples_A, samples_B, lab_x
         geom_line(data=df_mean_line, mapping=aes(x=as.integer(features), y=value, color=variable), size=1.5) +
         theme(
             text = element_text(face="bold", size=style$lab_size),
-            panel.background = NULL,
+            panel.background = element_blank(),
             axis.text.x = element_blank(),
             axis.ticks.x = element_blank(),
-            axis.text.y = element_text(size=style$tickslab_size)
+            axis.text.y = element_text(size=style$tickslab_size),
+            axis.line = element_line()
         ) +
         labs(
             title = title,
